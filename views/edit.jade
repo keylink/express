@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    .container
+
+        h2 Edit Your Profile
+
+            form(role='form', action="/edit", method="post", style='max-width: 300px;')
+                .form-group
+                    i.red email
+                    input.form-control(type='text', value="#{user.email}" name="email", placeholder='email')
+                .form-group
+                    i.red surname
+                    input.form-control(type='text', value="#{user.info.surname}"  name="surname", placeholder='surname')
+                .form-group
+                    i.red address
+                    input.form-control(type='text', value="#{user.info.address}" name="address", placeholder='address')
+                .form-group
+                    i.red phone
+                    input.form-control(type='text', value="#{user.info.phone}" name="phone", placeholder='phone')
+                .form-group
+                    i.red age
+                    input.form-control(type='text', value="#{user.info.age}" name="age", placeholder='age')
+                button.btn.btn-success(type='submit') Submit
+                a.btn.btn-danger#test #{user.id}

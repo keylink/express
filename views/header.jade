@@ -1,0 +1,29 @@
+
+block header
+  nav(class="navbar navbar-default navbar-fixed-top")
+    div.container
+      div(class="navbar-header")
+        button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
+          span(class="icon-bar")
+          span(class="icon-bar")
+          span(class="icon-bar")
+        a(class="navbar-brand" href="/") CRUD app
+      div#navbar.navbar-collapse.collapse
+        ul(class="nav navbar-nav")
+          li
+            a(href="/") Home
+          li
+            a(href="simplePage") Test page2
+        ul(class="nav navbar-nav navbar-right")
+          if (!user)
+            li
+              a(href="/login" class="link") Login
+            li
+              a(href="/register" class="link") Register
+          if (user)
+            li
+              a(href="/edit" class="link") Edit Account
+            li
+              a(href="/logout" class="link") Logout
+            li
+              a(href="/myProfile" class="link") < "#{user.username}" >

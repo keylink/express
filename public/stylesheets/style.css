@@ -1,0 +1,47 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+  padding: 0 10px;
+  text-decoration: underline;
+}
+
+/* Creting styles for main page */
+
+.user {
+  float: right;
+  text-transform: uppercase;
+  color: green;
+  text-decoration: underline;
+}
+
+.add__size {
+  margin-top: 4%;
+}
+
+.red {
+  color: #00B7FF;
+  font-size: 14px;
+}
+
+.down {
+  margin-top: 5%;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center li {
+  font-size: 20px;
+  color: cadetblue;
+}
+
+.center li span {
+  color: #000;
+}
