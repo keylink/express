@@ -5,7 +5,7 @@ block content
     .row.center
       .col-md-6.down
         .panel.panel-default
-          .panel-heading #{user.username} Profile data
+          .panel-heading Profile data
           .panel-body
             if(user)
               ul
@@ -21,6 +21,5 @@ block content
                   span  #{user.info.age}
         if(user)
           a(href="/edit" class="link btn btn-primary") Edit Account
-
-
-
+          span
+          a(href="/product" class="link btn btn-primary") Go to products

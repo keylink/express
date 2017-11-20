@@ -2,24 +2,8 @@ var express = require('express');
 var passport = require('passport');
 var Account = require('../models/account');
 var router = express.Router();
+var Product = require('../models/product');
 
-/**
- * >>> TODO new add new Model to db and manipulate this data on the page
- *
- * var Person = require('../models/person');
- *
- */
-
-//MiddleWare show request data
-var requestTime = function (req, res, next) {
-  req.requestTime = new Date();
-  //console.log(req.user, req.person);
-  next()
-};
-
-//Using my custom middleware which prints request to db
-
-router.use(requestTime);
 
 // ROUTES *****
 
@@ -46,7 +30,7 @@ router.post('/register', function(req, res) {
     }
 
     passport.authenticate('local')(req, res, function () {
-      res.redirect('/');
+      res.redirect('/myProfile');
     });
   });
 });
@@ -57,10 +41,12 @@ router.get('/login', function(req, res) {
   res.render('login', { user : req.user });
 });
 
+
 router.post('/login', passport.authenticate('local'), function(req, res) {
   res.redirect('/myProfile');
-  req.flash('info', 'Hi there!')
+  req.flash('info', 'Hi there!');
 });
+
 
 //Logout Routes
 
@@ -87,9 +73,11 @@ router.get('/myProfile', function (req, res) {
   res.render('myProfile', { user: req.user, requestTime1: req.requestTime })
 });
 
+
 router.get('/simplePage', function (req, res) {
-  res.render('simplePage', {})
+  res.render('simplePage', {user: req.user})
 });
+
 
 router.get('/edit', function (req, res) {
 
@@ -99,6 +87,7 @@ router.get('/edit', function (req, res) {
   }
   res.render('edit', { user: req.user, requestTime1: req.requestTime })
 });
+
 
 router.post('/edit', function(req, res) {
 
@@ -121,6 +110,7 @@ router.post('/edit', function(req, res) {
   res.redirect('/myProfile');
 });
 
+
 //Delete account
 router.post('/delete/:id', function (req, res) {
 
@@ -131,23 +121,71 @@ router.post('/delete/:id', function (req, res) {
       return res.status(200).send(err);
     }
   });
-  console.log("------redirect is here--------");
-  //return res.redirect('/login');
-  return res.send({redirect: '/login'});
+
+  return res.redirect('/login');
+});
+
+/**
+ * PRODUCTS CREATIONS PAGES IS HERE
+ *
+ * 1) created model product
+ * 2) getting model from db with method find()
+ * 3) posting to db with save()
+ * 4) delete
+ *
+ */
+
+//Create Product Page render method
+router.get('/createProduct', function(req, res) {
+  return res.render('createProduct', { user: req.user })
+});
+
+
+//Show product page
+router.get('/product', function (req, res) {
+
+  if (!req.user) {
+    res.redirect('/login')
+  }
+
+  Product.find({}, function (err, product) {
+    return res.render('product', { product : product, user: req.user })
+  });
 
 });
 
 
-// router.post("delete/:id", deleteUser); // This is reached when the client calls post('delete/user/1a2b3c4d'). The id is read with req.params.id
-//
-// deleteUser(req,res) {
-//   User.findById(req.params.id)
-//     .remove()
-//     .exec( error => { // Reply to the client, otherwise the request will hang and timeout.
-//     if(error) return res.status(500).send(error);
-//   res.status(200).end()
-// })
-// }
+//Create Product method
+router.post('/product', function(req, res) {
+
+  var product = new Product({
+    email: req.body.email,
+    displayName: req.body.displayName
+  });
+
+  product.save(function (err) {
+    if (err) {
+      return res.send({ err: err });
+    }
+  });
+
+  return res.redirect('/product');
+});
+
+
+//Delete product
+router.post('/deleteProduct/:id', function (req, res) {
+
+  Product.findByIdAndRemove(req.params.id, function(err) {
+
+    if (err) {
+      return res.status(500).send(err);
+    }
+  });
+
+  return res.end('{"success" : "Updated Successfully", "status" : 200}');
+});
+
 
 // 404 page
 router.get('*', function(req, res){

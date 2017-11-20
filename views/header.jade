@@ -14,6 +14,9 @@ block header
             a(href="/") Home
           li
             a(href="simplePage") Test page2
+          if(user)
+            li
+              a(href="/product") Our Products
         ul(class="nav navbar-nav navbar-right")
           if (!user)
             li

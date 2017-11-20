@@ -1,27 +1,33 @@
 
+//time
 function time () {
   var watch = new Date();
   $("#time").text(watch);
 }
 
-function gotoNode() {
-  console.log($("#test").text());
-}
+//AJAX request to Api which delete product
 
-$("#test").click(function () {
-  var userId = $("#test").text();
-  $.post('/delete/'+userId);
+$(".test").click(function () {
+  var productId = $(this).text();
+  var prod = $(this);
+
+  //function delete
+  function deleteProduct() {
+    console.log(prod);
+    prod.parent().remove();
+  }
 
   $.ajax({
-    url: '/delete/'+userId,
-    type: "POST",
-    success: function() {
-      window.location = '/login';
-    },
-    error: function() {
-      console.log("error")
-    }
-  });
+    url: '/deleteProduct/'+productId,
+    method: "POST",
+    datatype: "json"
+  })
+    .done(function() {
+      deleteProduct();
+    })
+    .fail(function() {
+      console.log( "error" );
+    });
 });
 
 
