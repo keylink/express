@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    .container
+        br
+        br
+        a(href="/createProduct" class="btn btn-primary") create new One
+        .row
+            h1 - Your Products -
+            if(product)
+                each val in product
+                    .col-md-4
+                        .panel.panel-default
+                            .panel-heading Profile - #{val.displayName}
+                            .img
+                                img(src="/img/659806-Box_cube_cargo_loading_package_archive_arrow_file_open_product-512.png" alt="img")
+                            .panel-body
+                                ul
+                                    li your ID -
+                                        span.id#test  #{val._id}
+                                    li Email -
+                                        span  #{val.email}
+
+                        a(class="test btn btn-primary") #{val._id}
