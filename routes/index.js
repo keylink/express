@@ -5,6 +5,7 @@ var router = express.Router();
 var Product = require('../models/product');
 
 
+
 // ROUTES *****
 
 router.get('/', function (req, res) {
@@ -14,7 +15,7 @@ router.get('/', function (req, res) {
 // Register page via passport ROUTES
 
 router.get('/register', function(req, res) {
-  res.render('register', { });
+  res.render('profile/register', { });
 });
 
 router.post('/register', function(req, res) {
@@ -26,11 +27,11 @@ router.post('/register', function(req, res) {
     req.body.password, function(err, account) {
 
     if (err) {
-      return res.render('register', { account : account });
+      return res.render('profile/register', { account : account });
     }
 
     passport.authenticate('local')(req, res, function () {
-      res.redirect('/myProfile');
+      res.redirect('profile/myProfile');
     });
   });
 });
@@ -38,7 +39,7 @@ router.post('/register', function(req, res) {
 // Login page Routes
 
 router.get('/login', function(req, res) {
-  res.render('login', { user : req.user });
+  res.render('profile/login', { user : req.user });
 });
 
 
@@ -70,12 +71,12 @@ router.get('/myProfile', function (req, res) {
   if (!req.user) {
     res.redirect('/')
   }
-  res.render('myProfile', { user: req.user, requestTime1: req.requestTime })
+  res.render('profile/myProfile', { user: req.user, requestTime1: req.requestTime })
 });
 
 
 router.get('/simplePage', function (req, res) {
-  res.render('simplePage', {user: req.user})
+  res.render('simplePage/simplePage', {user: req.user})
 });
 
 
@@ -85,7 +86,7 @@ router.get('/edit', function (req, res) {
   if (!req.user) {
     res.redirect('/')
   }
-  res.render('edit', { user: req.user, requestTime1: req.requestTime })
+  res.render('profile/edit', { user: req.user, requestTime1: req.requestTime })
 });
 
 
@@ -103,7 +104,7 @@ router.post('/edit', function(req, res) {
     }
   }, { new: true }, function (err, user) {
     if (err) {
-      return res.render('edit', { user : user });
+      return res.render('profile/edit', { user : user });
     }
   });
 
@@ -137,7 +138,7 @@ router.post('/delete/:id', function (req, res) {
 
 //Create Product Page render method
 router.get('/createProduct', function(req, res) {
-  return res.render('createProduct', { user: req.user })
+  return res.render('product/createProduct', { user: req.user })
 });
 
 
@@ -149,7 +150,7 @@ router.get('/product', function (req, res) {
   }
 
   Product.find({}, function (err, product) {
-    return res.render('product', { product : product, user: req.user })
+    return res.render('product/product', { product : product, user: req.user })
   });
 
 });
