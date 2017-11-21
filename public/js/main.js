@@ -18,7 +18,7 @@ $(".test").click(function () {
   }
 
   $.ajax({
-    url: '/deleteProduct/'+productId,
+    url: '/products/deleteProduct/'+productId,
     method: "POST",
     datatype: "json"
   })

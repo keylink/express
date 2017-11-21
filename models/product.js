@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var Product = new Schema({
   email: String,
   displayName: String,
-  image: { data: Buffer, contentType: String }
+  image: String
 });
 
 

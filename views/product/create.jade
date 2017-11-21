@@ -4,11 +4,13 @@ block content
     .container
         h1 Product Page
 
-        form(role='form', action="/productEdit/#{user.id}", method="post", style='max-width: 300px;')
+        form(role='form', action="/products/product", method="post", enctype="multipart/form-data", style='max-width: 300px;')
             .form-group
                 i.red email
                 input.form-control(type='text', name="email", placeholder='email')
             .form-group
                 i.red surname
                 input.form-control(type='text', name="displayName", placeholder='displayName')
-            button.btn.btn-success(type='submit') Submit
+            .form-group
+                input(type="file", name="image")
+            button(type="submit", value="Upload" class="btn btn-primary") Edit File

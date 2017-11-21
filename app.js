@@ -10,9 +10,9 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var person = require('./routes/person');
+var accounts = require('./routes/accounts');
+var fileUpload = require('express-fileupload');
+var products = require('./routes/products');
 
 //Define our variable as express app
 var app = express();
@@ -36,8 +36,10 @@ app.use(passport.initialize());
 app.use(flash());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
-app.use('/', routes);
+app.use('/products', products);
+app.use('/', accounts);
 
 // passport config
 var Account = require('./models/account');
@@ -62,7 +64,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
+        res.render('global/error', {
             message: err.message,
             error: err
         });

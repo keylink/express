@@ -12,11 +12,9 @@ block header
         ul(class="nav navbar-nav")
           li
             a(href="/") Home
-          li
-            a(href="simplePage") Test page2
           if(user)
             li
-              a(href="/product") Our Products
+              a(href="/products/product") Our Products
         ul(class="nav navbar-nav navbar-right")
           if (!user)
             li
@@ -29,4 +27,4 @@ block header
             li
               a(href="/logout" class="link") Logout
             li
-              a(href="/myProfile" class="link") < "#{user.username}" >
+              a(href="/account" class="link") < "#{user.username}" >
