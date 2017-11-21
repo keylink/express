@@ -13,6 +13,7 @@ var flash = require('connect-flash');
 var accounts = require('./routes/accounts');
 var fileUpload = require('express-fileupload');
 var products = require('./routes/products');
+var profile = require('./routes/profile');
 
 //Define our variable as express app
 var app = express();
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
 app.use('/products', products);
+app.use('/profile', profile);
 app.use('/', accounts);
 
 // passport config

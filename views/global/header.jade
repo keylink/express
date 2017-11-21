@@ -23,8 +23,8 @@ block header
               a(href="/register" class="link") Register
           if (user)
             li
-              a(href="/edit" class="link") Edit Account
+              a(href="/profile/edit" class="link") Edit Profile
             li
               a(href="/logout" class="link") Logout
             li
-              a(href="/account" class="link") < "#{user.username}" >
+              a(href="/profile/profile" class="link") < "#{user.username}" >

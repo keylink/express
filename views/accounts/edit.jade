@@ -5,7 +5,7 @@ block content
 
         h2 Edit Your Profile
 
-            form(role='form', action="/edit", method="post", style='max-width: 300px;')
+            form(role='form', action="/profile/edit", method="post", style='max-width: 300px;')
                 .form-group
                     i.red email
                     input.form-control(type='text', value="#{user.email}" name="email", placeholder='email')
@@ -22,5 +22,5 @@ block content
                     i.red age
                     input.form-control(type='text', value="#{user.info.age}" name="age", placeholder='age')
                 button.btn.btn-success(type='submit') Submit
-            form(role='form', action="/delete/#{user.id}", method="post", style='max-width: 300px;')
+            form(role='form', action="/profile/delete/#{user.id}", method="post", style='max-width: 300px;')
                 button.btn.btn-danger#test(type='submit') delete
