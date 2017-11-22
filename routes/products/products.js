@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 var Product = require('../../models/product');
 
-
 /**
  * PRODUCTS CREATIONS PAGES IS HERE
  *
@@ -14,19 +13,57 @@ var Product = require('../../models/product');
  *
  */
 
+// Main product route
 
-//Show product page
 router.get('/', function (req, res) {
 
   if (!req.user) {
     res.redirect('/login')
   }
 
-  Product.find({}, function (err, product) {
-    return res.render('product/product', { product : product, user: req.user })
-  });
+  // Search by query methods in db
 
+  if(req.query.displayName) {
+    var displayName = req.query['displayName'];
+
+    Product.find({displayName: displayName}, function (err, product) {
+      return res.render('product/product', { product : product, user: req.user })
+    });
+
+  } else if (req.query.email) {
+    var email = req.query['email'];
+
+    Product.find({displayName: email}, function (err, product) {
+      return res.render('product/product', { product : product, user: req.user })
+    });
+
+  } else {
+
+    Product.find({}, function (err, product) {
+      return res.render('product/product', { product : product, user: req.user })
+    });
+
+  }
 });
+
+// Pagination Pages route
+
+router.get('/:page', function(req, res, next) {
+  var perPage = 3;
+  var page = req.params.page || 1;
+
+  Product.find({}).skip((perPage * page) - perPage).limit(perPage).exec(function(err, product) {
+    Product.count().exec(function(err, count) {
+      if (err) return next(err);
+      res.render('product/product', {
+        product: product,
+        current: page,
+        pages: Math.ceil(count / perPage)
+      })
+    })
+  })
+});
+
 
 //Create Product Page render method
 router.get('/edit', function(req, res) {
@@ -35,6 +72,8 @@ router.get('/edit', function(req, res) {
 
 //Create Product method
 router.post('/', function(req, res) {
+
+  // Image upload method
 
   var imgLink = '';
 
@@ -68,7 +107,7 @@ router.post('/', function(req, res) {
 
 
 //Delete product
-router.post('/deleteProduct/:id', function (req, res) {
+router.delete('/:id', function (req, res) {
 
   Product.findByIdAndRemove(req.params.id, function(err) {
 

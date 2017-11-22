@@ -18,8 +18,8 @@ $(".test").click(function () {
   }
 
   $.ajax({
-    url: '/products/deleteProduct/'+productId,
-    method: "POST",
+    url: '/products/'+productId,
+    method: "delete",
     datatype: "json"
   })
     .done(function() {

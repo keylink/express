@@ -46,7 +46,7 @@ router.post('/edit', function(req, res) {
   }
   }, { new: true }, function (err, user) {
     if (err) {
-      return res.render('profile/profile_edit', { user : user });
+      return res.render('/profile_edit', { user : user });
     }
   });
 
