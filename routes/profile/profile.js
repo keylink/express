@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-var Account = require('../models/account');
+var Account = require('../../models/account');
 
 /**
  * Accounts Routes ( /accounts ) collect and edit data route
@@ -11,13 +11,13 @@ var Account = require('../models/account');
  */
 
 
-router.get('/profile', function (req, res) {
+router.get('/', function (req, res) {
 
   //If user not Login in redirect to home page
   if (!req.user) {
     res.redirect('/')
   }
-  res.render('accounts/profile', { user: req.user, requestTime1: req.requestTime })
+  res.render('profile/profile', { user: req.user, requestTime1: req.requestTime })
 });
 
 
@@ -27,7 +27,7 @@ router.get('/edit', function (req, res) {
   if (!req.user) {
     res.redirect('/')
   }
-  res.render('accounts/edit', { user: req.user, requestTime1: req.requestTime })
+  res.render('profile/profile_edit', { user: req.user, requestTime1: req.requestTime })
 });
 
 
@@ -38,22 +38,23 @@ router.post('/edit', function(req, res) {
   Account.findByIdAndUpdate(req.user.id, { $set: {
     email: req.body.email,
     accountEdit: true,
-    "info.surname": req.body.surname,
-    "info.address": req.body.address,
-    "info.phone": req.body.phone,
-    "info.age": req.body.age
+    "profile.surname": req.body.surname,
+    "profile.address": req.body.address,
+    "profile.phone": req.body.phone,
+    "profile.age": req.body.age,
+    "profile.email": req.body.email
   }
   }, { new: true }, function (err, user) {
     if (err) {
-      return res.render('accounts/edit', { user : user });
+      return res.render('profile/profile_edit', { user : user });
     }
   });
 
-  res.redirect('/profile/profile');
+  res.redirect('/profile/');
 });
 
 
-//Delete account
+// Delete account
 router.post('/delete/:id', function (req, res) {
 
   Account.findByIdAndRemove(req.params.id, function(err) {
@@ -67,9 +68,5 @@ router.post('/delete/:id', function (req, res) {
   return res.redirect('/login');
 });
 
-// 404 page
-router.get('*', function(req, res){
-  res.send('Sorry this page doesnt exist', 404);
-});
 
 module.exports = router;

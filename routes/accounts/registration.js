@@ -1,14 +1,7 @@
 const express = require('express');
 const router = express.Router();
-var Account = require('../models/account');
+var Account = require('../../models/account');
 var passport = require('passport');
-
-
-// ROUTES *******
-
-router.get('/', function (req, res) {
-  res.render('index', { user : req.user });
-});
 
 // Register page via passport ROUTES
 
@@ -17,10 +10,16 @@ router.get('/register', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
+
   Account.register(
     new Account({
       username : req.body.username,
-      accountEdit: false
+      accountEdit: false,
+      'profile.email': '',
+      'profile.surname': '',
+      'profile.address': '',
+      'profile.phone': '',
+      'profile.age': ''
     }),
     req.body.password, function(err, account) {
 
@@ -29,29 +28,9 @@ router.post('/register', function(req, res) {
       }
 
       passport.authenticate('local')(req, res, function () {
-        res.redirect('/profile/profile');
+        res.redirect('/profile');
       });
     });
 });
-
-// Login page Routes
-
-router.get('/login', function(req, res) {
-  res.render('accounts/login', { user : req.user });
-});
-
-
-router.post('/login', passport.authenticate('local'), function(req, res) {
-  res.redirect('/profile/profile');
-});
-
-
-//Logout Routes
-
-router.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
-});
-
 
 module.exports = router;

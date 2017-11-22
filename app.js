@@ -10,10 +10,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 
-var accounts = require('./routes/accounts');
 var fileUpload = require('express-fileupload');
-var products = require('./routes/products');
-var profile = require('./routes/profile');
+var routes = require('./routes/index');
 
 //Define our variable as express app
 var app = express();
@@ -39,9 +37,7 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
-app.use('/products', products);
-app.use('/profile', profile);
-app.use('/', accounts);
+app.use('/', routes);
 
 // passport config
 var Account = require('./models/account');
@@ -66,7 +62,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
-        res.render('global/error', {
+        res.render('errors/error', {
             message: err.message,
             error: err
         });
@@ -77,7 +73,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.render('errors/error', {
         message: err.message,
         error: {}
     });

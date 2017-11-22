@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-var Product = require('../models/product');
+var Product = require('../../models/product');
 
 
 /**
@@ -14,14 +14,9 @@ var Product = require('../models/product');
  *
  */
 
-//Create Product Page render method
-router.get('/edit', function(req, res) {
-  return res.render('product/create', { user: req.user })
-});
-
 
 //Show product page
-router.get('/product', function (req, res) {
+router.get('/', function (req, res) {
 
   if (!req.user) {
     res.redirect('/login')
@@ -33,14 +28,17 @@ router.get('/product', function (req, res) {
 
 });
 
+//Create Product Page render method
+router.get('/edit', function(req, res) {
+  return res.render('product/product_create', { user: req.user })
+});
 
 //Create Product method
-router.post('/product', function(req, res) {
+router.post('/', function(req, res) {
 
   var imgLink = '';
 
   if (req.files.image != undefined) {
-    console.log("sdfsdf sfsd fsdf ")
 
     var sampleFile = req.files.image;
 
@@ -65,7 +63,7 @@ router.post('/product', function(req, res) {
     }
   });
 
-  return res.redirect('/products/product');
+  return res.redirect('/products');
 });
 
 
@@ -84,7 +82,7 @@ router.post('/deleteProduct/:id', function (req, res) {
 
 // Edit product
 router.get('/edit', function (req, res) {
-  return res.render('product/edit', { user: req.user })
+  return res.render('product/product_edit', { user: req.user })
 });
 
 router.post('/edit', function (req, res) {

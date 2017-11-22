@@ -14,7 +14,7 @@ block header
             a(href="/") Home
           if(user)
             li
-              a(href="/products/product") Our Products
+              a(href="/products") Our Products
         ul(class="nav navbar-nav navbar-right")
           if (!user)
             li
@@ -27,4 +27,4 @@ block header
             li
               a(href="/logout" class="link") Logout
             li
-              a(href="/profile/profile" class="link") < "#{user.username}" >
+              a(href="/profile" class="link") < "#{user.username}" >

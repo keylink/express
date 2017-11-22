@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  .container
+    .row.center
+      .col-md-6.down
+        .panel.panel-default
+          .panel-heading Profile data
+          .panel-body
+            if(user)
+              ul
+                li your ID -
+                  span  #{user._id}
+                if(user.accountEdit == false)
+                  li
+                    span Sorry no Information, Please fill profile information
+                if(user.accountEdit == true)
+                  li Surname -
+                    span  #{user.profile.surname}
+                  li Email -
+                    span  #{user.profile.email}
+                  li Address -
+                    span  #{user.profile.address}
+                  li Age -
+                    span  #{user.profile.age}
+                  li Phone -
+                    span  #{user.profile.phone}
+        if(user)
+          a(href="/profile/edit" class="link btn btn-primary") Edit Account
+          span
+          a(href="/products/product" class="link btn btn-primary") Go to products
