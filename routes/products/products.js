@@ -48,7 +48,7 @@ router.get('/', function (req, res) {
 
 // Pagination Pages route
 
-router.get('/:page', function(req, res, next) {
+router.get('/pages/:page', function(req, res, next) {
   var perPage = 3;
   var page = req.params.page || 1;
 
