@@ -13,52 +13,64 @@ var Product = require('../../models/product');
  *
  */
 
-// Main product route
+
+// Main product route with search and pagination
 
 router.get('/', function (req, res) {
 
-  if (!req.user) {
-    res.redirect('/login')
-  }
-
-  // Search by query methods in db
-
-  if(req.query.displayName) {
-    var displayName = req.query['displayName'];
-
-    Product.find({displayName: displayName}, function (err, product) {
-      return res.render('product/product', { product : product, user: req.user })
-    });
-
-  } else if (req.query.email) {
-    var email = req.query['email'];
-
-    Product.find({displayName: email}, function (err, product) {
-      return res.render('product/product', { product : product, user: req.user })
-    });
-
-  } else {
-
-    Product.find({}, function (err, product) {
-      return res.render('product/product', { product : product, user: req.user })
-    });
-
-  }
-});
-
-// Pagination Pages route
-
-router.get('/pages/:page', function(req, res, next) {
   var perPage = 3;
-  var page = req.params.page || 1;
+  var pages = req.query.pages || 1;
+  var email;
+  var displayName;
+  var newUrl;
+  var params = {
+    $or: [
+      {
+        displayName: req.query.displayName
+      },
+      {
+        email: req.query.email
+      }
+    ]
+  };
 
-  Product.find({}).skip((perPage * page) - perPage).limit(perPage).exec(function(err, product) {
-    Product.count().exec(function(err, count) {
+  //Checking if there is a params for search
+  if (req.query.displayName || req.query.email) {
+    newParams = params;
+  } else {
+    newParams = {}
+  }
+
+  // Creating new values for pagination url
+  if (req.query.displayName) {
+    displayName = 'displayName=' + req.query.displayName;
+  }
+  if (req.query.email) {
+    email = 'email=' + req.query.email;
+  }
+
+  // Searching in db
+  Product.find(newParams).skip((perPage * pages) - perPage).limit(perPage).exec(function(err, product) {
+    Product.count(newParams).exec(function(err, count) {
       if (err) return next(err);
+
+      // making new Url for pagination
+      if (displayName != undefined && email == undefined) {
+        newUrl = '&' + displayName
+      } else if (email != undefined && displayName == undefined) {
+        newUrl = '&' + email
+      } else if (email == undefined && displayName == undefined) {
+        newUrl;
+      } else {
+        newUrl = '&' + email + '&' + displayName;
+      }
+
+      // Sending params to view
       res.render('product/product', {
         product: product,
-        current: page,
-        pages: Math.ceil(count / perPage)
+        current: pages,
+        pages: Math.ceil(count / perPage),
+        params: newUrl
       })
     })
   })
@@ -67,8 +79,9 @@ router.get('/pages/:page', function(req, res, next) {
 
 //Create Product Page render method
 router.get('/edit', function(req, res) {
-  return res.render('product/product_create', { user: req.user })
+  return res.render('product/create', { user: req.user })
 });
+
 
 //Create Product method
 router.post('/', function(req, res) {
@@ -119,24 +132,19 @@ router.delete('/:id', function (req, res) {
   return res.end('{"success" : "Updated Successfully", "status" : 200}');
 });
 
+
 // Edit product
 router.get('/edit', function (req, res) {
-  return res.render('product/product_edit', { user: req.user })
+  return res.render('product/edit', { user: req.user })
 });
 
-router.post('/edit', function (req, res) {
 
-  var sampleFile = req.files.image;
+// Search by email route
 
-  // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv('public/img/' + sampleFile.name, function(err) {
-    if (err) {
-      return res.status(500).send(err);
-    }
-
-    res.send('File uploaded!');
+router.get('/search', function (req, res) {
+  Product.find().sort({ email: req.query.email}).exec(function(err, model) {
+    res.send(model)
   });
-
 });
 
 

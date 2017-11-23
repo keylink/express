@@ -5,6 +5,8 @@ block content
         br
         br
         a(href="/products/edit" class="btn btn-primary") create new One
+        if(params)
+            p #{params}
 
         .row
             h1 - Your Products -
@@ -36,7 +38,10 @@ block content
                         a First
                 else
                     li
-                        a(href="/products/pages/1") First
+                        if (!params)
+                            a(href="/products?pages=1") First
+                        if (params)
+                            a(href="/products?pages=1#{params}") First
                 - var i = (Number(current) > 5 ? Number(current) - 4 : 1)
                     if (i !== 1)
                         li(class="disabled")
@@ -47,7 +52,10 @@ block content
                             a= i
                     else
                         li
-                            a(href="/products/pages/#{i}")= i
+                            if (!params)
+                                a(href="/products?pages=#{i}")= i
+                            if (params)
+                                a(href="/products?pages=#{i}#{params}")= i
                     if(i == Number(current) + 4 && i < pages)
                         li(class="disabled")
                             a ...
@@ -56,4 +64,7 @@ block content
                         a Last
                 else
                     li
-                        a(href="/products/pages/#{i}") Last
+                        if (!params)
+                            a(href="/products?pages=#{i}") Last
+                        if (params)
+                            a(href="/products?pages=#{i}#{params}") Last

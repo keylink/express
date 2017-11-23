@@ -27,7 +27,7 @@ router.get('/edit', function (req, res) {
   if (!req.user) {
     res.redirect('/')
   }
-  res.render('profile/profile_edit', { user: req.user, requestTime1: req.requestTime })
+  res.render('profile/edit', { user: req.user, requestTime1: req.requestTime })
 });
 
 
@@ -46,7 +46,7 @@ router.post('/edit', function(req, res) {
   }
   }, { new: true }, function (err, user) {
     if (err) {
-      return res.render('/profile_edit', { user : user });
+      return res.render('/edit', { user : user });
     }
   });
 
