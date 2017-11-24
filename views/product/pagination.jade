@@ -1,0 +1,30 @@
+
+block pagination
+    if(totalPages > 0)
+        ul(class="pagination text-center")
+            if(currentPage == 1)
+                li(class="disabled")
+                    a First
+            else
+                li
+                    a(href="/products?page=1#{searchUrl}") First
+            - var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1)
+                if (i !== 1)
+                    li(class="disabled")
+                        a ...
+            - for (; i <= (Number(currentPage) + 4) && i <= totalPages; i++)
+                if(i == currentPage)
+                    li(class="active")
+                        a= i
+                else
+                    li
+                        a(href="/products?page=#{i}#{searchUrl}")= i
+                if(i == Number(currentPage) + 4 && i < totalPages)
+                    li(class="disabled")
+                        a ...
+            if(currentPage == totalPages)
+                li(class="disabled")
+                    a Last
+            else
+                li
+                    a(href="/products?page=#{totalPages}#{searchUrl}") Last

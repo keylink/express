@@ -13,17 +13,17 @@ var Account = require('../../models/account');
 
 router.get('/', function (req, res) {
 
-  //If user not Login in redirect to home page
+  // If user not Login in redirect to home page
   if (!req.user) {
     res.redirect('/')
   }
-  res.render('profile/profile', { user: req.user, requestTime1: req.requestTime })
+  res.render('profile/index', { user: req.user, requestTime1: req.requestTime })
 });
 
 
 router.get('/edit', function (req, res) {
 
-  //If user not Login in redirect to home page
+  // If user not Login in redirect to home page
   if (!req.user) {
     res.redirect('/')
   }
@@ -33,7 +33,7 @@ router.get('/edit', function (req, res) {
 
 router.post('/edit', function(req, res) {
 
-  //Creating passing data model to db
+  // Creating passing data model to db
 
   Account.findByIdAndUpdate(req.user.id, { $set: {
     email: req.body.email,
@@ -58,14 +58,11 @@ router.post('/edit', function(req, res) {
 router.post('/delete/:id', function (req, res) {
 
   Account.findByIdAndRemove(req.params.id, function(err) {
-
     if (err) {
-
-      return res.status(200).send(err);
+      return res.status(500).send(err);
     }
   });
-
-  return res.redirect('/login');
+  return res.res.status(200).redirect('/login');
 });
 
 

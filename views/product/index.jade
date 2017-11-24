@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+    .container
+        br
+        br
+        a(href="/products/edit" class="btn btn-primary") create new One
+
+        .row
+            h1 - Your Products -
+            each product in products
+                .col-md-4
+                    .panel.panel-default
+                        .panel-heading Profile - #{product.displayName}
+                        .img
+                            img(src="/img/659806-Box_cube_cargo_loading_package_archive_arrow_file_open_product-512.png" alt="img")
+                        .panel-body
+                            ul
+                                li your ID -
+                                    span.id#test  #{product._id}
+                                li Email -
+                                    span  #{product.email}
+                                if(product.image)
+                                    li
+                                        img(src="#{product.image}")
+                    span delete -->
+                    a(class="test btn btn-primary") #{product._id}
+        block pagination
+            include pagination

@@ -20,6 +20,8 @@ This Application is currently extended with the following plugins. Instructions 
 | mongoose | [mongoose](https://www.npmjs.com/package/mongoose) |
 | passport.js | [passport](https://www.npmjs.com/package/passport) |
 | express-fileupload | [express-fileupload](https://www.npmjs.com/package/express-fileupload) |
+| mongoose-validate | [mongoose-validate](https://www.npmjs.com/package/mongoose-validate) |
+| uuid | [uuid](https://www.npmjs.com/package/uuid) |
 
 ### Installation
 

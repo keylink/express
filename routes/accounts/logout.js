@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-//Logout Routes
+// Logout Routes
 
 router.get('/logout', function(req, res) {
   req.logout();

@@ -11,8 +11,8 @@ var Account = new Schema({
   profile: Profile
 });
 
-//Using passport for our model
+// Using passport for our model
 Account.plugin(passportLocalMongoose);
 
-//exporting model
+// Exporting model
 module.exports = mongoose.model('Account', Account);

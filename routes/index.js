@@ -6,7 +6,7 @@ var login = require('./accounts/login');
 var logout = require('./accounts/logout');
 var registration = require('./accounts/registration');
 
-//Routes import start here ********
+// Routes import start here ********
 
 router.use('/products', products);
 router.use('/profile', profile);

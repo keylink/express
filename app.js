@@ -13,7 +13,7 @@ var flash = require('connect-flash');
 var fileUpload = require('express-fileupload');
 var routes = require('./routes/index');
 
-//Define our variable as express app
+// Define our variable as express app
 var app = express();
 
 // view engine setup
