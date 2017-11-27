@@ -74,4 +74,16 @@ $ npm start
 localhost:3000
 ```
 
+## TODO List for learn NodeJs technology
+
+| Number | Description |
+| ------ | ------ |
+| 1 | Create functionality for delete image from folder in product page |
+| 2 | Try to convert object before pass the values from server to client ( use library to decode text ) |
+| 3 | Create design form product (Images looks very big on blocks with products) |
+| 4 | Minimize code in project |
+| 5 | Read official docs about technology |
+| 6 | Add for all requests status with code & try to send Json objects from server to client |
+| 7 | Create search form on page with products |
+
 Enjoy! thank you.

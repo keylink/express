@@ -58,3 +58,21 @@ a {
   height: 100%;
   display: inline-block;
 }
+
+.red {
+  color: red;
+  padding: 6px 10px 0;
+}
+
+.form-group i {
+  padding: 0px 0 5px;
+  display: inline-block;
+}
+
+.search {
+  margin-top: 10px;
+}
+
+#search {
+  float: right;
+}

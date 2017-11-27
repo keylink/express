@@ -11,7 +11,10 @@ var fs = require('fs');
  * 2) getting model from db with method find()
  * 3) posting to db with save()
  * 4) edit and upload image
- * 5) delete
+ * 5) delete product
+ * 6) TODO: delete image from folder
+ * 7) TODO: convert object in http request format
+ * 8) TODO: try decoder
  *
  */
 
@@ -78,9 +81,10 @@ router.post('/', function(req, res) {
 
   product.save(req, function (err) {
     if (err) {
-      return res.status(500).send({ err: err.message });
+      return res.status(200).render('product/create', {err: err})
+    } else {
+      return res.status(200).redirect('/products');
     }
-    return res.status(200).redirect('/products');
   });
 });
 

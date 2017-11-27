@@ -5,12 +5,6 @@ block content
         h1 Product Edit
 
         form(role='form', action="/edit", method="post", enctype="multipart/form-data", style='max-width: 300px;')
-            .form-group
-                i.red email
-                input.form-control(type='text', name="email", placeholder='email')
-            .form-group
-                i.red surname
-                input.form-control(type='text', name="displayName", placeholder='displayName')
-            .form-group
-                input(type="file", name="image")
+            include create-forms
+
             button(type="submit", value="Upload") Upload File

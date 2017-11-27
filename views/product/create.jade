@@ -4,16 +4,7 @@ block content
     .container
         h1 Product Page
 
-        form(role='form', action="/products", method="post", enctype="multipart/form-data", style='max-width: 300px;')
-            .form-group
-                i.red email
-                input.form-control(type='text', name="email", placeholder='email')
-            .form-group
-                i.red surname
-                input.form-control(type='text', name="displayName", placeholder='displayName')
-            .form-group
-                i.red productSize
-                input.form-control(type='text', name="productSize", placeholder='productSize')
-            .form-group
-                input(type="file", name="image")
+        form(id='form' role='form', action="/products", method="post", enctype="multipart/form-data", style='max-width: 300px;')
+            include create-forms
+
             button(type="submit", value="Upload" class="btn btn-primary") Edit File

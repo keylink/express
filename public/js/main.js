@@ -30,7 +30,6 @@ $(".test").click(function () {
     });
 });
 
-
 setInterval(function() {
   time();
 }, 1000);

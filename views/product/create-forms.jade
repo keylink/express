@@ -1,0 +1,19 @@
+
+block create-form
+    .form-group
+        i email
+        input.form-control(type='text', name="email", placeholder='email')
+        if (err)
+            p.red #{err.errors.email ? err.errors.email.message : " "}
+    .form-group
+        i surname
+        input.form-control(type='text', name="displayName", placeholder='displayName')
+        if (err)
+            p.red #{err.errors.displayName ? err.errors.displayName.message : " "}
+    .form-group
+        i productSize
+        input.form-control(type='text', name="productSize", placeholder='productSize')
+        if (err)
+            p.red #{err.errors.productSize ? err.errors.productSize.message : " "}
+    .form-group
+        input(type="file", name="image")
