@@ -5,7 +5,7 @@ block content
         br
         br
         .products
-            a(href="/products/edit" class="btn btn-primary") create new One
+            a(href="/products/create" class="btn btn-primary") create new One
             block search
                 include search
 
@@ -24,7 +24,7 @@ block content
                                 li Email -
                                     span  #{product.email}
                                 if(product.image)
-                                    li
+                                    li(class="uploaded")
                                         img(src="#{product.image}")
                     span delete -->
                     a(class="test btn btn-primary") #{product._id}

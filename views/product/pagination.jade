@@ -1,21 +1,22 @@
 
 block pagination
     if(totalPages > 0)
-        ul(class="pagination text-center")
-            li(class=currentPage == 1 ? "disabled" : "")
-                a(href=currentPage == 1 ? "" : "/products?page=1#{searchUrl}" ) First
+        .pagination__wrapper
+            ul(class="pagination text-center")
+                li(class=currentPage == 1 ? "disabled" : "")
+                    a(href=currentPage == 1 ? "" : "/products?page=1#{searchUrl}" ) First
 
-            - var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1)
-                if (i !== 1)
-                    li(class="disabled")
-                        a ...
-            - for (; i <= (Number(currentPage) + 4) && i <= totalPages; i++)
-                li(class=i == currentPage ? "active" : "")
-                    a(href=i == currentPage ? "" : "/products?page=#{i}#{searchUrl}")= i
+                - var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1)
+                    if (i !== 1)
+                        li(class="disabled")
+                            a ...
+                - for (; i <= (Number(currentPage) + 4) && i <= totalPages; i++)
+                    li(class=i == currentPage ? "active" : "")
+                        a(href=i == currentPage ? "" : "/products?page=#{i}#{searchUrl}")= i
 
-                if(i == Number(currentPage) + 4 && i < totalPages)
-                    li(class="disabled")
-                        a ...
+                    if(i == Number(currentPage) + 4 && i < totalPages)
+                        li(class="disabled")
+                            a ...
 
-            li(class=currentPage == totalPages ? "disabled" : "")
-                a(href=currentPage == totalPages ? "" : "/products?page=#{totalPages}#{searchUrl}") Last
+                li(class=currentPage == totalPages ? "disabled" : "")
+                    a(href=currentPage == totalPages ? "" : "/products?page=#{totalPages}#{searchUrl}") Last

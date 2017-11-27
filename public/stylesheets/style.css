@@ -76,3 +76,19 @@ a {
 #search {
   float: right;
 }
+
+.uploaded {
+  width: 227px;
+  height: auto;
+}
+
+.uploaded img {
+  width: 100%;
+  height: 100%;
+}
+
+.pagination__wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}

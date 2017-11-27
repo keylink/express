@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 var Product = require('../../models/product');
 var configs = require('../../configs/configs');
-var fs = require('fs');
+var rimraf = require('rimraf');
 
 /**
  * PRODUCTS CREATIONS PAGES IS HERE
@@ -62,7 +62,7 @@ router.get('/', function (req, res) {
 
 // Create Product Page render method
 
-router.get('/edit', function(req, res) {
+router.get('/create', function(req, res) {
   return res.status(200).render('product/create', { user: req.user })
 });
 
@@ -81,7 +81,7 @@ router.post('/', function(req, res) {
 
   product.save(req, function (err) {
     if (err) {
-      return res.status(200).render('product/create', {err: err})
+      return res.status(500).render('product/create', {err: err})
     } else {
       return res.status(200).redirect('/products');
     }
@@ -92,11 +92,13 @@ router.post('/', function(req, res) {
 // Delete product
 
 router.delete('/:id', function (req, res) {
-  Product.findByIdAndRemove(req.params.id, function(err) {
-    //fs.unlink();
+  Product.findByIdAndRemove(req.params.id, function(err, product) {
     if (err) {
       return res.status(500).send(err);
     }
+
+    // Creating path to delete image folder with image both
+    if(product.image) rimraf("./public/" + product.imageFolderName, function() { console.log('image delete'); });
   });
   return res.end('{"success" : "Updated Successfully", "status" : 200}');
 });

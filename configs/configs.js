@@ -6,3 +6,4 @@
  * */
 
 exports.limit = 3;
+exports.imageDirecory = "public/img/";
